@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="NotifyStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MessageID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Recipients" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="NotifyType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Param" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NotifyStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NotifyStatusResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="int" type="s:int" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendMessageSoapIn">
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Recipients" type="s:string" />
+    <wsdl:part name="MessageType" type="s:int" />
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="Format" type="s:int" />
+    <wsdl:part name="RetryOnError" type="s:boolean" />
+    <wsdl:part name="Reportflag" type="s:int" />
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMessageSoapOut">
+    <wsdl:part name="SendMessageResult" type="s:int" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSoapIn">
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="CallBackAddr" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSoapOut">
+    <wsdl:part name="RegisterResult" type="s:int" />
+  </wsdl:message>
+  <wsdl:message name="NotifyStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:NotifyStatus" />
+  </wsdl:message>
+  <wsdl:message name="NotifyStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:NotifyStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMessageHttpGetIn">
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Recipients" type="s:string" />
+    <wsdl:part name="MessageType" type="s:string" />
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="Format" type="s:string" />
+    <wsdl:part name="RetryOnError" type="s:string" />
+    <wsdl:part name="Reportflag" type="s:string" />
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMessageHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="RegisterHttpGetIn">
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="CallBackAddr" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="SendMessageHttpPostIn">
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Recipients" type="s:string" />
+    <wsdl:part name="MessageType" type="s:string" />
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="Format" type="s:string" />
+    <wsdl:part name="RetryOnError" type="s:string" />
+    <wsdl:part name="Reportflag" type="s:string" />
+    <wsdl:part name="MessageID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMessageHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="RegisterHttpPostIn">
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="CallBackAddr" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegisterHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="MessageGatewayServiceSoap">
+    <wsdl:operation name="SendMessage">
+      <wsdl:input message="tns:SendMessageSoapIn" />
+      <wsdl:output message="tns:SendMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input message="tns:RegisterSoapIn" />
+      <wsdl:output message="tns:RegisterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStatus">
+      <wsdl:input message="tns:NotifyStatusSoapIn" />
+      <wsdl:output message="tns:NotifyStatusSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MessageGatewayServiceHttpGet">
+    <wsdl:operation name="SendMessage">
+      <wsdl:input message="tns:SendMessageHttpGetIn" />
+      <wsdl:output message="tns:SendMessageHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input message="tns:RegisterHttpGetIn" />
+      <wsdl:output message="tns:RegisterHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MessageGatewayServiceHttpPost">
+    <wsdl:operation name="SendMessage">
+      <wsdl:input message="tns:SendMessageHttpPostIn" />
+      <wsdl:output message="tns:SendMessageHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input message="tns:RegisterHttpPostIn" />
+      <wsdl:output message="tns:RegisterHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MessageGatewayServiceSoap" type="tns:MessageGatewayServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="SendMessage" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap:operation soapAction="Register" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStatus">
+      <soap:operation soapAction="http://tempuri.org/NotifyStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MessageGatewayServiceSoap12" type="tns:MessageGatewayServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="SendMessage" style="rpc" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap12:operation soapAction="Register" style="rpc" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStatus">
+      <soap12:operation soapAction="http://tempuri.org/NotifyStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MessageGatewayServiceHttpGet" type="tns:MessageGatewayServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SendMessage">
+      <http:operation location="/SendMessage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <http:operation location="/Register" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MessageGatewayServiceHttpPost" type="tns:MessageGatewayServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SendMessage">
+      <http:operation location="/SendMessage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <http:operation location="/Register" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MessageGatewayService">
+    <wsdl:port name="MessageGatewayServiceSoap" binding="tns:MessageGatewayServiceSoap">
+      <soap:address location="http://218.16.64.234:802/MessageGatewayService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MessageGatewayServiceSoap12" binding="tns:MessageGatewayServiceSoap12">
+      <soap12:address location="http://218.16.64.234:802/MessageGatewayService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MessageGatewayServiceHttpGet" binding="tns:MessageGatewayServiceHttpGet">
+      <http:address location="http://218.16.64.234:802/MessageGatewayService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MessageGatewayServiceHttpPost" binding="tns:MessageGatewayServiceHttpPost">
+      <http:address location="http://218.16.64.234:802/MessageGatewayService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

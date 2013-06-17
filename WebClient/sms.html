@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="sms.css" rel="stylesheet" type="text/css" />
+<title>发送短信</title>
+
+<script language="javascript">
+function PLshow(LSR){
+	LSR.style.display=''
+}
+function PLclose(LSR){
+	LSR.style.display='none'
+}
+</script>
+
+</head>
+
+<body>
+
+<div id="ip5">
+	<div class="ShowArea">
+		<div class="contacts">
+			<div class="icoadd"><img src="imgs/ico_add.jpg" onclick="PLshow(LSR);"/></div>
+			<div class="sjr">收件人</div><input name="" type="text" class="text"/>
+		</div>
+		<div class="line"><img src="imgs/line.jpg"/></div>
+		<div id="LSR" class="LSR" style="display:none;">
+			<textarea cols="" wrap="physical" class="LSRcontents" >18680098655  18680098655  18680098655</textarea>
+			<div style="clear:both; text-align:right; padding-top:3px;"><input name="" class="RCbtn" value="隐藏" type="button" onclick="PLclose(LSR);"/></div>
+			
+		</div>
+		<br /><br />
+
+
+		<div class="SmsView">
+		  <textarea cols="" wrap="physical" class="contents" ></textarea>
+		</div>
+		<br />
+
+		<div>
+			<input name="btnLog" type="image" src="imgs/send.jpg" id="btnSend" value="提交" onmouseover="this.src='imgs/send_green.jpg'" onmouseout="this.src='imgs/send.jpg'"/>
+		</div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

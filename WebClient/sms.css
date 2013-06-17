@@ -1,0 +1,16 @@
+/* CSS Document */
+
+#ip5{ width:482px; height:400px; overflow:hidden; margin-left:auto; margin-right:auto; background:url(imgs/bg_ip5.jpg) no-repeat; padding-top:245px;}
+.ShowArea{padding-left:54px; padding-right:54px; overflow:hidden; height:auto;}
+.contacts{font:Arial, Helvetica, sans-serif; line-height:150%; font-size:14px;}
+.contacts .icoadd{float:right; cursor:pointer;}
+.contacts .sjr{float:left; width:52px; color:#4a638d; font-weight:bold; font-family:"宋体"; }
+.contacts .text{float:left; width:295px; border:#FFFFCC 0px solid;background-color:transparent;}
+.line{height:2px; clear:both;}
+.LSR{font-size:14px; line-height:130%; padding-top:3px; position:absolute; border:#909fbb 1px solid; padding:5px;  width:367px; background:#dbe1ed; max-height:280px; min-height:180px;overflow:hidden;}
+.LSRcontents{font-size:14px; width:345px; height:124px; border:0px; overflow:hidden; padding:10px;color:#4a638d; line-height:130%;}
+.RCbtn{height:20px; line-height:18px; font-size:12px; background:#e5eefa url(imgs/btn_bg.jpg) bottom; border:#a4b7d8 1px solid; color:#445b83;}
+
+
+.SmsView{background:url(imgs/contents.jpg) no-repeat; width:379px; height:154px; overflow:hidden;}
+.contents{background-color: transparent;font-size:14px; width:359px; height:124px; border:0px; overflow:hidden; padding:10px;color:#4a638d; line-height:130%;}
