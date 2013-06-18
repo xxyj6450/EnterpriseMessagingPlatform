@@ -26,24 +26,38 @@
     Property MergeLimit As Boolean                          '是否合并运营商限制，即不分运营商限制
     Property FeeMessageLength As Integer                    '收费短信字符长度 即每条短信按多少个字符算一条短信
     Property Keywords As String                             '关键字列表
-    'Event NotifyStatus(MessageID As String, Recipients As String, NotifyType As Integer, Notify As String, Status As Integer, Param As Object)
-    Function SendMessage(ByRef MessageID As String, Usercode As String, Password As String, Title As String, Content As String, Recipients As String, ByRef Reserve As String) As Integer
     ''' <summary>
-    ''' 
+    ''' 发送消息，对消息发送者身份支持二级验证
     ''' </summary>
-    ''' <param name="SPNumber"></param>
-    ''' <param name="RecieveNumber"></param>
-    ''' <param name="Sender"></param>
-    ''' <param name="Content"></param>
-    ''' <param name="RecieveTime"></param>
+    ''' <param name="MessageID">由调用生成的消息ID</param>
+    ''' <param name="NodeUsercode">发送消息的主节点ID</param>
+    ''' <param name="NodePassword">发送消息的主节点密码</param>
+    ''' <param name="Usercode">发送消息者的系统用户名</param>
+    ''' <param name="Password">发送消息者的系统用户密码</param>
+    ''' <param name="Title">标题</param>
+    ''' <param name="Sender">接收者显示的发送人</param>
+    ''' <param name="Content">内容</param>
+    ''' <param name="Format">格式</param>
+    ''' <param name="Recipients">接收人，多个用分号分开</param>
+    ''' <param name="Reserve">保留</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function RecieveMessage(SPNumber As String, RecieveNumber As String, Sender As String, Content As String, RecieveTime As DateTime) As Integer
+    Function SendMessage(ByRef MessageID As String, NodeUsercode As String, NodePassword As String, Usercode As String, Password As String, Sender As String, _
+                         Title As String, Content As String, Format As Integer, Recipients As String, CC As String, Bcc As String, ByRef Reserve As String) As String
     ''' <summary>
-    ''' 
+    ''' 接收消息
     ''' </summary>
-    ''' <param name="SPNumber"></param>
-    ''' <param name="SequenceNo"></param>
+    ''' <param name="SequenceNo">接收消息的队列ID</param>
+    ''' <param name="Recipients">接收人</param>
+    ''' <param name="Sender">发送人</param>
+    ''' <param name="Title">标题</param>
+    ''' <param name="Content">正文</param>
+    ''' <param name="RecieveTime">接收时间</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Function RecieveMessage(Reciver As String, SequenceNo As String, Recipients As String, From As String, Sender As String, Title As String, Content As String, Format As Integer, RecieveTime As DateTime) As Integer
+    ''' <summary>
+    ''' </summary>
     ''' <param name="MessageID"></param>
     ''' <param name="Recipient"></param>
     ''' <param name="NotifyType"></param>
@@ -52,11 +66,10 @@
     ''' <param name="Reserve"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function NotifyStatus(SPNumber As String, SequenceNo As String, MessageID As String, Recipient As String, NotifyType As Integer, Status As Integer, Text As String, ByRef Reserve As String) As Integer
+    Function NotifyStatus(Reciver As String, SequenceNo As String, MessageID As String, Recipient As String, NotifyType As Integer, Status As Integer, Text As String, ByRef Reserve As String) As Integer
     ''' <summary>
     ''' 
     ''' </summary>
-    ''' <param name="SPNumber"></param>
     ''' <param name="SequenceNo"></param>
     ''' <param name="MessageID"></param>
     ''' <param name="Recipient"></param>
@@ -65,7 +78,7 @@
     ''' <param name="Reserve"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Function EchoOfSendSMS(SPNumber As String, SequenceNo As String, MessageID As String, Recipient As String, Status As Integer, ErrorCode As Integer, ByRef Reserve As String) As Integer
+    Function EchoOfSendSMS(Reciver As String, SequenceNo As String, MessageID As String, Recipient As String, Status As Integer, ErrorCode As Integer, ByRef Reserve As String) As Integer
     ''' <summary>
     ''' 
     ''' </summary>

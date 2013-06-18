@@ -109,7 +109,7 @@ Public Class HX_Message
 
     Public Property CLSID As String Implements IMessage.IMessager.CLSID
         Get
-            Return "B9644867-678E-46F6-984C-4BE5E50FEDF7"
+            Return "16be8f58-bac9-4491-a575-9dd04ce5b4e0"
         End Get
         Set(value As String)
 
@@ -138,7 +138,7 @@ Public Class HX_Message
 
     Public Property InterfaceID As String Implements IMessage.IMessager.InterfaceID
         Get
-
+            Return "68A36DF0-0C4A-407E-98E1-33C0D0077804"
         End Get
         Set(value As String)
 

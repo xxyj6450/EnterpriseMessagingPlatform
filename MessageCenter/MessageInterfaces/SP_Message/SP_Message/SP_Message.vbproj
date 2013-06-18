@@ -47,8 +47,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IMessage">
-      <HintPath>..\..\..\..\..\Common\IMessage\IMessage\bin\Release\IMessage.dll</HintPath>
+    <Reference Include="IMessage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Common\IMessage\IMessage\bin\Release\IMessage.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -82,7 +83,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SP_Message.asmx" />
+    <Content Include="SP_MessageServices.asmx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -92,8 +93,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SP_Message.asmx.vb">
-      <DependentUpon>SP_Message.asmx</DependentUpon>
+    <Compile Include="SP_Message.vb" />
+    <Compile Include="SP_MessageServices.asmx.vb">
+      <DependentUpon>SP_MessageServices.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
