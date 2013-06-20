@@ -9,8 +9,8 @@
     </SchemaVersion>
     <ProjectGuid>{613FFB9F-3787-4E19-B0C3-D4F53E42B464}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>IMessage</RootNamespace>
-    <AssemblyName>IMessage</AssemblyName>
+    <RootNamespace>EMP</RootNamespace>
+    <AssemblyName>EMP.MessagerInterfaces</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -21,7 +21,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>IMessage.xml</DocumentationFile>
+    <DocumentationFile>EMP.MessagerInterfaces.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>IMessage.xml</DocumentationFile>
+    <DocumentationFile>EMP.MessagerInterfaces.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>

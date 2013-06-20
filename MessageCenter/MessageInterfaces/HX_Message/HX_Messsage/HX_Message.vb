@@ -1,8 +1,10 @@
-﻿Namespace Messager
-    Public Class SP_Message
+﻿Imports System.Data
+Imports System.Data.SqlClient
+Namespace Messsager
+    Public Class HX_Message
         Implements MessagerInterfaces.IMessager
 
-        Private Const SP_Message_URL As String = "http://192.168.88.53:8080/JtSgip/JTMessageSend.jsp"
+
         Protected Friend Function RecieveMessage(Reciver As String, SequenceNo As String, Recipients As String, From As String, Sender As String, Title As String, Content As String, Format As Integer, RecieveTime As Date) As Integer Implements MessagerInterfaces.IMessager.RecieveMessage
 
         End Function
@@ -11,47 +13,27 @@
             Return SendMessage(MessageID, Usercode, Password, Content, Recipients, Reserve)
         End Function
         Public Function SendMessage(ByRef MessageID As String, Usercode As String, Password As String, Content As String, Recipients As String, ByRef Reserve As String) As Integer
-            'http://192.168.88.53:8080/WebSgip/MessageSendPage.jsp?SendTelList=18688639997&SendContext=%E6%B5%8B%E8%AF%95%E7%9F%AD%E4%BF%A1
-            Dim url As String, ret As String
-            If System.Configuration.ConfigurationManager.AppSettings("SP_Message_URL") = "" Then
-                System.Configuration.ConfigurationManager.AppSettings("SP_Message_URL") = SP_Message_URL
-            End If
-            url = System.Configuration.ConfigurationManager.AppSettings("SP_Message_URL")
             Try
-                ret = RequestWEB(url, "SendTelList=" & System.Web.HttpUtility.UrlEncode(Recipients) _
-                                 & "&SendContext=" & System.Web.HttpUtility.UrlEncode(Content) _
-                                 & "&Usercode=" & System.Web.HttpUtility.UrlEncode(Usercode) _
-                                 & "&Password=" & System.Web.HttpUtility.UrlEncode(Password) _
-                                 & "&Options=" & System.Web.HttpUtility.UrlEncode(Reserve))
-                ' RaiseEvent NotifyStatus(MessageID, Recipients, 0, 0, ret, Options)
+                Using conn As New System.Data.SqlClient.SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings("MessageCenterDB").ConnectionString)
+                    conn.Open()
+                    Dim cmd As New SqlCommand("sp_Send_HX_Message", conn)
+                    With cmd
+                        .CommandType = CommandType.StoredProcedure
+                        .Parameters.Add("@Recipients", SqlDbType.VarChar).Value = Recipients
+                        .Parameters.Add("@Content", SqlDbType.VarChar).Value = Content
+                        .Parameters.Add("@MsgType", SqlDbType.Int).Value = 1
+                        .Parameters.Add("@dept", SqlDbType.VarChar).Value = Options
+                        .Parameters.Add("@srcuser", SqlDbType.VarChar).Value = Usercode
+                        .ExecuteNonQuery()
+                    End With
+                    conn.Close()
+                End Using
+
                 Return 0
             Catch ex As Exception
-                'RaiseEvent NotifyStatus(MessageID, Recipients, 0, -8, ex.Message, Options)
+
                 Return -8
             End Try
-        End Function
-        Private Function RequestWEB(ByVal URL As String, Optional Data As String = "", Optional ByVal URLRefer As String = "http://esales.10010.com") As String
-            Dim httpRequest As System.Net.HttpWebRequest
-            Dim httpResponse As System.Net.HttpWebResponse
-            Dim html As String
-            Dim bytes() As Byte, RequestBytes() As Byte
-            httpRequest = System.Net.HttpWebRequest.Create(URL)
-            RequestBytes = System.Text.Encoding.UTF8.GetBytes(Data)
-            With httpRequest
-                .Method = "POST"
-                .ContentType = "application/x-www-form-urlencoded"
-                .ContentLength = RequestBytes.Length
-                .GetRequestStream.Write(RequestBytes, 0, RequestBytes.Length)
-                httpResponse = httpRequest.GetResponse
-                Using reader As New System.IO.StreamReader(httpResponse.GetResponseStream)
-                    html = reader.ReadToEnd
-                End Using
-            End With
-            httpRequest.GetResponse.Close()
-            httpResponse.Close()
-            httpRequest = Nothing
-            httpResponse = Nothing
-            Return html
         End Function
 
         Protected Friend Function NotifyStatus(SPNumber As String, SequenceNo As String, MessageID As String, Recipient As String, NotifyType As Integer, Status As Integer, Text As String, ByRef Reserve As String) As Integer Implements MessagerInterfaces.IMessager.NotifyStatus

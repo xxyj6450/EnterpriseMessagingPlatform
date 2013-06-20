@@ -2,16 +2,17 @@
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Runtime.Remoting.Messaging
+Imports EMP
+Imports EMP.MessagerInterfaces
 Public Class MessageCenter
-    Event NotifyStatus(MessageID As String, Recipients As String, NotifyType As Integer, Notify As String, Status As Integer, Param As Object)
-
-
     '实际发送消息
-    Public Shared Function SendMessage(NodeID As String, Usercode As String, Password As String, Recipients As String, MessageType As Integer, _
-                                Title As String, Content As String, Format As Integer, RetryOnError As Boolean, Reportflag As Integer, MessageID As String, _
+    Public Shared Function SendMessage(NodeID As String, NodeUsercode As String, NodePassword As String, _
+                                       Usercode As String, Password As String, Sender As String, SenderName As String, _
+                                       Recipients As String, CC As String, Bcc As String, MessageType As Integer, Title As String, Content As String, _
+                                       Format As Integer, RetryOnError As Boolean, Reportflag As Integer, MessageID As String, _
                                 InterfaceID As String, CONNID As String, TerminalID As String, IPAddress As String, Param As String) As Integer
         Dim ret As Integer, Options As String, sql As String, dt As Data.DataTable
-        Dim MsgManager As IMessage.IMessager
+        Dim MsgManager As EMP.MessagerInterfaces.IMessager
         Using conn As SqlClient.SqlConnection = New SqlClient.SqlConnection(Web.Configuration.WebConfigurationManager.ConnectionStrings("MessageCenterDB").ConnectionString)
             Dim dr As SqlClient.SqlDataReader, cmd As SqlClient.SqlCommand
             conn.Open()
@@ -75,9 +76,9 @@ Public Class MessageCenter
 
                         .ExecuteNonQuery()
                         '将上一次的param和messageid合并在一起,传入下一次消息的param中
-                        MsgManager = IMessage.MessagerFactory.CreateMessager(InterfaceID)
+                        MsgManager = EMP.MessagerFactory.CreateMessager(InterfaceID)
                         Dim SendSMS As New SendMessage_Delegate(AddressOf MsgManager.SendMessage)
-                        SendSMS.BeginInvoke(.Parameters("@MessageID").Value, row("Usercode").ToString, row("Password").ToString, Title, Content, row("Recipients").ToString, Options + ";" & MessageID, AddressOf SendMessage_Completed, MessageID)
+                        SendSMS.BeginInvoke(.Parameters("@MessageID").Value, NodeUsercode, NodePassword, row("Usercode").ToString, row("Password").ToString, Sender, SenderName, Title, Content, Format, row("Recipients").ToString, CC, Bcc, Options + ";" & MessageID, AddressOf SendMessage_Completed, MessageID)
                         'ret = MsgManager.SendMessage(.Parameters("@MessageID").Value, row("Usercode").ToString, row("Password").ToString, Title, Content, row("Recipients").ToString, Options + ";" & MessageID)
                     End With
                 Next
@@ -86,7 +87,9 @@ Public Class MessageCenter
         End Using
         Return ret
     End Function
-    Private Delegate Function SendMessage_Delegate(ByRef MessageID As String, Usercode As String, Password As String, Title As String, Content As String, Recipients As String, ByRef Options As String) As Integer
+
+    Private Delegate Function SendMessage_Delegate(ByRef MessageID As String, NodeUsercode As String, NodePassword As String, Usercode As String, Password As String, Sender As String, SenderName As String, _
+                             Title As String, Content As String, Format As Integer, Recipients As String, CC As String, Bcc As String, ByRef Reserve As String) As String
     Private Shared Sub SendMessage_Completed(itfAR As IAsyncResult)
         Dim ar As AsyncResult = CType(itfAR, AsyncResult)
         Dim sms_d As SendMessage_Delegate = CType(ar.AsyncDelegate, SendMessage_Delegate)

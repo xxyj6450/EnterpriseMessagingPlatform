@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types />
+  <wsdl:message name="SendMessageSoapIn">
+    <wsdl:part name="NodeID" type="s:string" />
+    <wsdl:part name="NodeUsercode" type="s:string" />
+    <wsdl:part name="NodePassword" type="s:string" />
+    <wsdl:part name="Usercode" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="Sender" type="s:string" />
+    <wsdl:part name="SenderName" type="s:string" />
+    <wsdl:part name="Recipients" type="s:string" />
+    <wsdl:part name="CC" type="s:string" />
+    <wsdl:part name="Bcc" type="s:string" />
+    <wsdl:part name="MessageType" type="s:int" />
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="Format" type="s:int" />
+    <wsdl:part name="RetryOnError" type="s:boolean" />
+    <wsdl:part name="Reportflag" type="s:int" />
+    <wsdl:part name="MessageID" type="s:string" />
+    <wsdl:part name="InterfaceID" type="s:string" />
+    <wsdl:part name="CONNID" type="s:string" />
+    <wsdl:part name="TerminalID" type="s:string" />
+    <wsdl:part name="IPAddress" type="s:string" />
+    <wsdl:part name="Param" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendMessageSoapOut">
+    <wsdl:part name="SendMessageResult" type="s:int" />
+  </wsdl:message>
+  <wsdl:message name="NotifyStatusSoapIn">
+    <wsdl:part name="Reciver" type="s:string" />
+    <wsdl:part name="SequenceNo" type="s:string" />
+    <wsdl:part name="MessageID" type="s:string" />
+    <wsdl:part name="Recipient" type="s:string" />
+    <wsdl:part name="NotifyType" type="s:int" />
+    <wsdl:part name="Status" type="s:int" />
+    <wsdl:part name="Text" type="s:string" />
+    <wsdl:part name="Reserve" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="NotifyStatusSoapOut">
+    <wsdl:part name="NotifyStatusResult" type="s:int" />
+    <wsdl:part name="Reserve" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EchoOfSendSMSSoapIn">
+    <wsdl:part name="Reciver" type="s:string" />
+    <wsdl:part name="SequenceNo" type="s:string" />
+    <wsdl:part name="MessageID" type="s:string" />
+    <wsdl:part name="Recipient" type="s:string" />
+    <wsdl:part name="Status" type="s:int" />
+    <wsdl:part name="ErrorCode" type="s:int" />
+    <wsdl:part name="Reserve" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EchoOfSendSMSSoapOut">
+    <wsdl:part name="EchoOfSendSMSResult" type="s:int" />
+    <wsdl:part name="Reserve" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RecieveMessageSoapIn">
+    <wsdl:part name="Reciver" type="s:string" />
+    <wsdl:part name="SequenceNo" type="s:string" />
+    <wsdl:part name="Recipients" type="s:string" />
+    <wsdl:part name="From" type="s:string" />
+    <wsdl:part name="Sender" type="s:string" />
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Content" type="s:string" />
+    <wsdl:part name="Format" type="s:int" />
+    <wsdl:part name="RecieveTime" type="s:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="RecieveMessageSoapOut">
+    <wsdl:part name="RecieveMessageResult" type="s:int" />
+  </wsdl:message>
+  <wsdl:portType name="MessageCenterServiceSoap">
+    <wsdl:operation name="SendMessage">
+      <wsdl:input message="tns:SendMessageSoapIn" />
+      <wsdl:output message="tns:SendMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStatus">
+      <wsdl:input message="tns:NotifyStatusSoapIn" />
+      <wsdl:output message="tns:NotifyStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EchoOfSendSMS">
+      <wsdl:input message="tns:EchoOfSendSMSSoapIn" />
+      <wsdl:output message="tns:EchoOfSendSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecieveMessage">
+      <wsdl:input message="tns:RecieveMessageSoapIn" />
+      <wsdl:output message="tns:RecieveMessageSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MessageCenterServiceSoap" type="tns:MessageCenterServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="SendMessage" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStatus">
+      <soap:operation soapAction="NotifyStatus" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EchoOfSendSMS">
+      <soap:operation soapAction="EchoOfSendSMS" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecieveMessage">
+      <soap:operation soapAction="RecieveMessage" style="rpc" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MessageCenterServiceSoap12" type="tns:MessageCenterServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="SendMessage" style="rpc" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStatus">
+      <soap12:operation soapAction="NotifyStatus" style="rpc" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EchoOfSendSMS">
+      <soap12:operation soapAction="EchoOfSendSMS" style="rpc" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecieveMessage">
+      <soap12:operation soapAction="RecieveMessage" style="rpc" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://tempuri.org/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MessageCenterService">
+    <wsdl:port name="MessageCenterServiceSoap" binding="tns:MessageCenterServiceSoap">
+      <soap:address location="http://localhost:20291/MessageCenterService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MessageCenterServiceSoap12" binding="tns:MessageCenterServiceSoap12">
+      <soap12:address location="http://localhost:20291/MessageCenterService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

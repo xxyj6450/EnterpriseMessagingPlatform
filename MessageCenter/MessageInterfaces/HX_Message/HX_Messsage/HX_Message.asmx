@@ -1,1 +1,0 @@
-﻿<%@ WebService Language="VB" CodeBehind="HX_Message.asmx.vb" Class="HX_Messsage.Service1" %>

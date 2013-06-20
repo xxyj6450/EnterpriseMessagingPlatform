@@ -2,7 +2,7 @@
     'Interfaces存储了
     Private Interfaces As System.Collections.Generic.Dictionary(Of String, String)
     '根据接口ID创建消息发送对象
-    Public Shared Function CreateMessager(InterfaceID As String) As IMessage.IMessager
+    Public Shared Function CreateMessager(InterfaceID As String) As EMP.MessagerInterfaces.IMessager
         Select Case InterfaceID
             Case "B9644867-678E-46F6-984C-4BE5E50FEDF7"
                 Return New Object
@@ -14,7 +14,7 @@
         End Select
 
     End Function
-    Public Shared Function CreateMessagerByName(InterfaceName As String) As IMessage.IMessager
+    Public Shared Function CreateMessagerByName(InterfaceName As String) As EMP.MessagerInterfaces.IMessager
         Return New Object
     End Function
 End Class

@@ -8,13 +8,15 @@ Imports System.Data.SqlClient
 Imports System.Data.SqlTypes
 Imports System.Xml.Serialization
 Imports System.Xml
+Imports EMP
+Imports EMP.Messager
 <System.Web.Services.WebService(Namespace:="http://tempuri.org/")> _
 <System.Web.Services.WebServiceBinding(ConformsTo:=Services.WsiProfiles.None)> _
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 <ToolboxItem(False)> _
 Public Class SP_MessageService
     Inherits System.Web.Services.WebService
-    Private sp_Object As New SP_Message
+    Private sp_Object As New EMP.Messager.SP_Message
     <WebMethod()> _
     <SoapRpcMethod(Action:="SendMessage", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
     Public Function SendMessage(MessageID As String, Usercode As String, Password As String, Content As String, Recipients As String, ByRef Reserve As String) As Integer
@@ -27,7 +29,7 @@ Public Class SP_MessageService
         WriteLog("收到通知:" & SPNumber & "," & SequenceNo & "," & MessageID & "," & Recipient & "," & NotifyType & "," & Status & "," & Text)
         Return (New SP_Message).NotifyStatus(SPNumber, SequenceNo, MessageID, Recipient, NotifyType, Status, Text, "")
     End Function
-
+ 
     <WebMethod()> _
     <SoapRpcMethod(Action:="EchoOfSendSMS", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
     Public Function EchoOfSendSMS(SPNumber As String, SequenceNo As String, MessageID As String, Recipient As String, Status As Integer, ErrorCode As Integer) As Integer

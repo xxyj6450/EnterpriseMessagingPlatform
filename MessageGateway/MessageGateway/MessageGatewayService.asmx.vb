@@ -14,7 +14,7 @@ Imports System.Runtime.Remoting.Messaging
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class MessageGatewayService
     Inherits System.Web.Services.WebService
-    Private WithEvents msgCenter As MessageCenter
+    Private msgCenter As MessageCenterService.MessageCenterService
     ''' <summary> 
     ''' 发送短信
     ''' </summary>
@@ -32,8 +32,8 @@ Public Class MessageGatewayService
     <WebMethod()> _
     <SoapRpcMethod(Action:="SendMessage", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
     Public Function SendMessage(Usercode As String, Password As String, Recipients As String, MessageType As Integer, _
-                                Title As String, Content As String, Format As Integer, RetryOnError As Boolean, Reportflag As Integer, MessageID As String) As Integer
-        Dim IPAddress As String, CONNID As String, TerminalID As String
+                                Title As String, Content As String, Format As Integer, RetryOnError As Boolean, Reportflag As Integer) As Integer
+        Dim IPAddress As String, CONNID As String, NodeUsercode As String, NodePassword As String, TerminalID As String, MessageID As String
         Dim sql As String, cmd As SqlCommand, dr As SqlDataReader
         Dim NodeID As String = "", Node_Usercode As String = "", Node_Password As String, Node_InterfaceID As String = "", Node_MessageId As String = ""
         Dim Node_CONNID As String = "", Node_TerminalID As String = "", Node_IPAddress As String, Node_RetryOnError As Boolean, Node_Reportflag As Integer
@@ -87,9 +87,9 @@ Public Class MessageGatewayService
             End With
             conn.Close()
         End Using
-        msgCenter = New MessageCenter
+        msgCenter = New MessageCenterService.MessageCenterService
         Dim sendSMS As New SendMessage_MessageCenterDelegate(AddressOf msgCenter.SendMessage)
-        
+
         sendSMS.BeginInvoke(NodeID, Node_Usercode, Node_Password, Recipients, MessageType, Title, Content, Format, Node_RetryOnError, Node_Reportflag, Node_MessageId, _
                             Node_InterfaceID, Node_CONNID, Node_TerminalID, Node_IPAddress, MessageID, New System.AsyncCallback(AddressOf SendMessage_MessageCenter_Compelted), Nothing)
         Return 0
@@ -110,11 +110,12 @@ Public Class MessageGatewayService
         Return 0
     End Function
     '声名发送消息到消息中心的委托，用于异步调用
-    Private Delegate Function SendMessage_MessageCenterDelegate(NodeID As String, Usercode As String, Password As String, Recipients As String, MessageType As Integer, _
-                                Title As String, Content As String, Format As Integer, _
-                                 RetryOnError As Boolean, Reportflag As Integer, MessageID As String, _
+    Private Delegate Function SendMessage_MessageCenterDelegate(NodeID As String, NodeUsercode As String, NodePassword As String, _
+                                       Usercode As String, Password As String, Sender As String, SenderName As String, _
+                                       Recipients As String, CC As String, Bcc As String, MessageType As Integer, Title As String, Content As String, _
+                                       Format As Integer, RetryOnError As Boolean, Reportflag As Integer, MessageID As String, _
                                 InterfaceID As String, CONNID As String, TerminalID As String, IPAddress As String, Param As String) As Integer
-   
+
     '发送消息结束时的事件
     Private Sub SendMessage_MessageCenter_Compelted(ByVal itfAR As IAsyncResult)
         Dim ar As AsyncResult = CType(itfAR, AsyncResult)
@@ -126,7 +127,7 @@ Public Class MessageGatewayService
 
     End Function
 
-    
+
     Private Sub msgCenter_NotifyStatus(MessageID As String, Recipients As String, NotifyType As Integer, Notify As String, Status As Integer, Param As Object) Handles msgCenter.NotifyStatus
 
     End Sub

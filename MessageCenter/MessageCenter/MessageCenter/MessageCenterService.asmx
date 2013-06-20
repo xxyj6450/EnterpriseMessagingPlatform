@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="VB" CodeBehind="MessageCenterService.asmx.vb" Class="MessageCenter.MessageCenterService" %>
+﻿<%@ WebService Language="VB" CodeBehind="MessageCenterService.asmx.vb" Class="EMP.MessageCenterService" %>

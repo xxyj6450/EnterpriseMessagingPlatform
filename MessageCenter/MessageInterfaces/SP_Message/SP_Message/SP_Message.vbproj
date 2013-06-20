@@ -10,8 +10,8 @@
     <ProjectGuid>{A4DA6C84-904B-4A06-9AE8-34A6FF7DE838}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>SP_Message</RootNamespace>
-    <AssemblyName>SP_Message</AssemblyName>
+    <RootNamespace>EMP</RootNamespace>
+    <AssemblyName>EMP.Messager.SP_Message</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <UseIISExpress>false</UseIISExpress>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\</OutputPath>
-    <DocumentationFile>SP_Message.xml</DocumentationFile>
+    <DocumentationFile>EMP.Messager.SP_Message.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +31,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DocumentationFile>SP_Message.xml</DocumentationFile>
+    <DocumentationFile>EMP.Messager.SP_Message.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -47,9 +47,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IMessage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Common\IMessage\IMessage\bin\Release\IMessage.dll</HintPath>
+    <Reference Include="EMP.MessagerInterfaces">
+      <HintPath>..\..\..\..\Common\IMessage\IMessage\bin\Release\EMP.MessagerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
