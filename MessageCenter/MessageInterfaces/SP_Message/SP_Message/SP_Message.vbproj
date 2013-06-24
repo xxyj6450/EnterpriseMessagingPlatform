@@ -47,7 +47,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EMP.MessagerInterfaces">
+    <Reference Include="EMP.MessagerInterfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Common\IMessage\IMessage\bin\Release\EMP.MessagerInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />

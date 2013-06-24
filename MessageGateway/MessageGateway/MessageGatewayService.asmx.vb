@@ -15,6 +15,7 @@ Imports System.Runtime.Remoting.Messaging
 Public Class MessageGatewayService
     Inherits System.Web.Services.WebService
     Private msgCenter As MessageCenterService.MessageCenterService
+    Private Shared UserConnection As New System.Collections.Generic.Dictionary(Of String, String)
     ''' <summary> 
     ''' 发送短信
     ''' </summary>
@@ -34,6 +35,7 @@ Public Class MessageGatewayService
     Public Function SendMessage(Usercode As String, Password As String, Recipients As String, MessageType As Integer, _
                                 Title As String, Content As String, Format As Integer, RetryOnError As Boolean, Reportflag As Integer) As Integer
         Dim IPAddress As String, CONNID As String, NodeUsercode As String, NodePassword As String, TerminalID As String, MessageID As String
+        Dim Sender As String, SenderName As String, CC As String, BCC As String
         Dim sql As String, cmd As SqlCommand, dr As SqlDataReader
         Dim NodeID As String = "", Node_Usercode As String = "", Node_Password As String, Node_InterfaceID As String = "", Node_MessageId As String = ""
         Dim Node_CONNID As String = "", Node_TerminalID As String = "", Node_IPAddress As String, Node_RetryOnError As Boolean, Node_Reportflag As Integer
@@ -90,25 +92,27 @@ Public Class MessageGatewayService
         msgCenter = New MessageCenterService.MessageCenterService
         Dim sendSMS As New SendMessage_MessageCenterDelegate(AddressOf msgCenter.SendMessage)
 
-        sendSMS.BeginInvoke(NodeID, Node_Usercode, Node_Password, Recipients, MessageType, Title, Content, Format, Node_RetryOnError, Node_Reportflag, Node_MessageId, _
+        sendSMS.BeginInvoke(NodeID, Node_Usercode, Node_Password, Usercode, Password, Sender, SenderName, Recipients, CC, BCC, MessageType, Title, Content, Format, Node_RetryOnError, Node_Reportflag, Node_MessageId, _
                             Node_InterfaceID, Node_CONNID, Node_TerminalID, Node_IPAddress, MessageID, New System.AsyncCallback(AddressOf SendMessage_MessageCenter_Compelted), Nothing)
         Return 0
     End Function
-
-    ''' <summary> 
-    ''' 注册应用,设置回调地址,必须注册后才可发送和接收短信
-    ''' </summary>
-    ''' <param name="Usercode">用户编码</param>
-    ''' <param name="Password">用户密码</param>
-    ''' <param name="CallBackAddr">应用方提供接收消息回复,状态报告和回执的接口</param>
-    ''' <returns>返回注册状态,0为正常</returns>
-    ''' <remarks></remarks>
     <WebMethod()> _
-    <SoapRpcMethod(Action:="Register", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
-    Public Function Register(Usercode As String, Password As String, CallBackAddr As String) As Integer
+    <SoapRpcMethod(Action:="SendEmail", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
+    Public 
+    <WebMethod()> _
+    <SoapRpcMethod(Action:="SendEmail", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
+    Public Function SendEmail(Usercode As String, Password As String, Sender As String, SenderName As String, Recipients As String, CC As String, BCC As String, _
+                                Title As String, Content As String, Format As Integer) As Integer
+        Dim IPAddress As String, CONNID As String, NodeUsercode As String, NodePassword As String, TerminalID As String, MessageID As String
 
-        Return 0
     End Function
+    <WebMethod()> _
+    <SoapRpcMethod(Action:="SendSMS", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
+    Public Function SendSMS(Usercode As String, Password As String, Recipients As String, Content As String) As Integer
+        Dim IPAddress As String, CONNID As String, NodeUsercode As String, NodePassword As String, TerminalID As String, MessageID As String
+
+    End Function
+
     '声名发送消息到消息中心的委托，用于异步调用
     Private Delegate Function SendMessage_MessageCenterDelegate(NodeID As String, NodeUsercode As String, NodePassword As String, _
                                        Usercode As String, Password As String, Sender As String, SenderName As String, _
@@ -122,13 +126,6 @@ Public Class MessageGatewayService
         Dim sms_d As SendMessage_MessageCenterDelegate = CType(ar.AsyncDelegate, SendMessage_MessageCenterDelegate)
 
     End Sub
-    <WebMethod()> _
-    Public Function NotifyStatus(MessageID As String, Recipients As String, NotifyType As Integer, Status As Integer, Text As String, Param As Object) As Integer
+ 
 
-    End Function
-
-
-    Private Sub msgCenter_NotifyStatus(MessageID As String, Recipients As String, NotifyType As Integer, Notify As String, Status As Integer, Param As Object) Handles msgCenter.NotifyStatus
-
-    End Sub
 End Class

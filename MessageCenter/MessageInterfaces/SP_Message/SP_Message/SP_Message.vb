@@ -1,4 +1,9 @@
-﻿Namespace Messager
+﻿Imports Microsoft.VisualBasic
+Imports System.Web
+Imports System.Net
+Imports EMP
+Namespace Messager
+    <EMP.Messager("B9644867-678E-46F6-984C-4BE5E50FEDF7", 0, "SP短信", "SYSTEM", "联通SP短信接口")>
     Public Class SP_Message
         Implements MessagerInterfaces.IMessager
 
@@ -17,18 +22,15 @@
                 System.Configuration.ConfigurationManager.AppSettings("SP_Message_URL") = SP_Message_URL
             End If
             url = System.Configuration.ConfigurationManager.AppSettings("SP_Message_URL")
-            Try
-                ret = RequestWEB(url, "SendTelList=" & System.Web.HttpUtility.UrlEncode(Recipients) _
-                                 & "&SendContext=" & System.Web.HttpUtility.UrlEncode(Content) _
-                                 & "&Usercode=" & System.Web.HttpUtility.UrlEncode(Usercode) _
-                                 & "&Password=" & System.Web.HttpUtility.UrlEncode(Password) _
-                                 & "&Options=" & System.Web.HttpUtility.UrlEncode(Reserve))
-                ' RaiseEvent NotifyStatus(MessageID, Recipients, 0, 0, ret, Options)
-                Return 0
-            Catch ex As Exception
-                'RaiseEvent NotifyStatus(MessageID, Recipients, 0, -8, ex.Message, Options)
-                Return -8
-            End Try
+
+            ret = RequestWEB(url, "SendTelList=" & System.Web.HttpUtility.UrlEncode(Recipients) _
+                             & "&SendContext=" & System.Web.HttpUtility.UrlEncode(Content) _
+                             & "&Usercode=" & System.Web.HttpUtility.UrlEncode(Usercode) _
+                             & "&Password=" & System.Web.HttpUtility.UrlEncode(Password) _
+                             & "&MessageId=" & System.Web.HttpUtility.UrlEncode(MessageID) _
+                             & "&Options=" & System.Web.HttpUtility.UrlEncode(Reserve))
+            ' RaiseEvent NotifyStatus(MessageID, Recipients, 0, 0, ret, Options)
+
         End Function
         Private Function RequestWEB(ByVal URL As String, Optional Data As String = "", Optional ByVal URLRefer As String = "http://esales.10010.com") As String
             Dim httpRequest As System.Net.HttpWebRequest

@@ -6,11 +6,10 @@ Imports EMP
 Imports EMP.MessagerInterfaces
 Public Class MessageCenter
     '实际发送消息
-    Public Shared Function SendMessage(NodeID As String, NodeUsercode As String, NodePassword As String, _
-                                       Usercode As String, Password As String, Sender As String, SenderName As String, _
+    Public Shared Function SendMessage(CONNID As String, NodeID As String, NodeUsercode As String, NodePassword As String, Sender As String, SenderName As String, _
                                        Recipients As String, CC As String, Bcc As String, MessageType As Integer, Title As String, Content As String, _
                                        Format As Integer, RetryOnError As Boolean, Reportflag As Integer, MessageID As String, _
-                                InterfaceID As String, CONNID As String, TerminalID As String, IPAddress As String, Param As String) As Integer
+                                InterfaceID As String, Param As String) As Integer
         Dim ret As Integer, Options As String, sql As String, dt As Data.DataTable
         Dim MsgManager As EMP.MessagerInterfaces.IMessager
         Using conn As SqlClient.SqlConnection = New SqlClient.SqlConnection(Web.Configuration.WebConfigurationManager.ConnectionStrings("MessageCenterDB").ConnectionString)
@@ -23,7 +22,7 @@ Public Class MessageCenter
                 .CommandText = "sp_RoutingMessage"
                 .CommandType = CommandType.StoredProcedure
                 .Parameters.Add("@NodeID", SqlDbType.VarChar, 50).Value = NodeID
-                .Parameters.Add("@Usercode", SqlDbType.VarChar, 50).Value = Usercode
+                .Parameters.Add("@Usercode", SqlDbType.VarChar, 50).Value = ""
                 .Parameters.Add("@Recipients", SqlDbType.VarChar).Value = Recipients
                 .Parameters.Add("@MsgLength", SqlDbType.Int).Value = Len(Content)
                 .Parameters.Add("@MsgType", SqlDbType.Int).Value = MessageType
@@ -46,7 +45,7 @@ Public Class MessageCenter
             cmd = New SqlCommand("sp_AddNewMessage", conn)
             With cmd
                 .CommandType = CommandType.StoredProcedure
-                .Parameters.Add("@Usercode", SqlDbType.VarChar, 50).Value = Usercode
+                .Parameters.Add("@Usercode", SqlDbType.VarChar, 50).Value = ""
                 .Parameters.Add("@SessionID", SqlDbType.VarChar, 50).Value = MessageID
                 .Parameters.Add("@MessageType", SqlDbType.VarChar, 50).Value = MessageType
                 .Parameters.Add("@Recipients", SqlDbType.VarChar).Value = Recipients
@@ -55,10 +54,9 @@ Public Class MessageCenter
                 .Parameters.Add("@MessageFormat", SqlDbType.Int).Value = Format
                 .Parameters.Add("@MessageCount", SqlDbType.Int).Value = 0
                 .Parameters.Add("@RetryOnError", SqlDbType.Bit).Value = RetryOnError
-                .Parameters.Add("@InterfaceID", SqlDbType.VarChar, 50).Value = ""
+                .Parameters.Add("@InterfaceID", SqlDbType.VarChar, 50).Value = InterfaceID
                 .Parameters.Add("@CONNID", SqlDbType.VarChar, 50).Value = CONNID
-                .Parameters.Add("@TerminalID", SqlDbType.VarChar, 50).Value = TerminalID
-                .Parameters.Add("@IPAddress", SqlDbType.VarChar, 20).Value = IPAddress
+
                 .Parameters.Add("@ReportFlag", SqlDbType.Int).Value = Reportflag
                 Dim p As SqlClient.SqlParameter = .Parameters.Add("@MessageID", SqlDbType.VarChar, 50)
                 p.Direction = ParameterDirection.InputOutput
