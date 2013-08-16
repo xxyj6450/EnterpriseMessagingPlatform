@@ -1,0 +1,15 @@
+[Header]
+2013-08-16 12:50:01,350 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer20.EXE
+2013-08-16 12:50:01,375 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer20.exe.config
+2013-08-16 12:50:01,375 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer20.exe.manifest
+2013-08-16 12:50:01,375 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.EXE
+2013-08-16 12:50:01,376 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe.config
+2013-08-16 12:50:01,376 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe.manifest
+2013-08-16 12:50:01,376 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\Lib\EMP.Messager.HX_Message.dll
+2013-08-16 12:50:01,572 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\Lib\EMP.Messager.SP_Message.dll
+2013-08-16 12:50:01,615 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\Lib\EMP.Messager.SP_Message.pdb
+2013-08-16 12:50:01,615 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\Lib\EMP.Messager.SP_Message.xml
+2013-08-16 12:50:01,615 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\Lib\EMP.Messsager.HX_Message.dll
+2013-08-16 12:50:01,615 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\zh-Hans\WebDev.WebServer20.resources.dll
+2013-08-16 12:50:01,615 [11] INFO  SendProgress [(null)] <(null)> - 扫描文件C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\zh-Hans\WebDev.WebServer40.resources.dll
+[Footer]

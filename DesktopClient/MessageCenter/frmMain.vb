@@ -134,4 +134,10 @@ Public Class frmMain
         f.Dock = DockStyle.Bottom
 
     End Sub
+
+    Private Sub 接收短信ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles 接收短信ToolStripMenuItem.Click
+        Dim f As New frm_RecieveMessage
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class

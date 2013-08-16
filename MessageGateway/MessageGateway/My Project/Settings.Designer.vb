@@ -57,7 +57,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://localhost:20291/MessageCenterService.asmx")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://218.16.64.234:802/MessageCenterservice.asmx")>  _
         Public ReadOnly Property EMP_MessageGateway_MessageCenterService_MessageCenterService() As String
             Get
                 Return CType(Me("EMP_MessageGateway_MessageCenterService_MessageCenterService"),String)

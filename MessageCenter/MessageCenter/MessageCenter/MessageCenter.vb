@@ -4,7 +4,9 @@ Imports System.Data.SqlClient
 Imports System.Runtime.Remoting.Messaging
 Imports EMP
 Imports EMP.MessagerInterfaces
+Imports log4net
 Public Class MessageCenter
+    Private Shared log As log4net.ILog = log4net.LogManager.GetLogger("SendProgress")
     '实际发送消息
     Public Shared Function SendMessage(CONNID As String, NodeID As String, NodeUsercode As String, NodePassword As String, Sender As String, SenderName As String, _
                                        Recipients As String, CC As String, Bcc As String, MessageType As Integer, Title As String, Content As String, _
@@ -12,6 +14,7 @@ Public Class MessageCenter
                                 InterfaceID As String, Param As String) As Integer
         Dim ret As Integer, Options As String, sql As String, dt As Data.DataTable
         Dim MsgManager As EMP.MessagerInterfaces.IMessager
+
         Using conn As SqlClient.SqlConnection = New SqlClient.SqlConnection(Web.Configuration.WebConfigurationManager.ConnectionStrings("MessageCenterDB").ConnectionString)
             Dim dr As SqlClient.SqlDataReader, cmd As SqlClient.SqlCommand
             conn.Open()
@@ -74,7 +77,12 @@ Public Class MessageCenter
 
                         .ExecuteNonQuery()
                         '将上一次的param和messageid合并在一起,传入下一次消息的param中
-                        MsgManager = EMP.MessagerFactory.CreateMessager(InterfaceID)
+                        Try
+                            MsgManager = EMP.MessagerFactory.CreateMessager(InterfaceID)
+                        Catch ex As Exception
+                            log.Error("创建对象失败", ex)
+                            Continue For
+                        End Try
                         Dim SendSMS As New SendMessage_Delegate(AddressOf MsgManager.SendMessage)
                         SendSMS.BeginInvoke(.Parameters("@MessageID").Value, NodeUsercode, NodePassword, row("Usercode").ToString, row("Password").ToString, Sender, SenderName, Title, Content, Format, row("Recipients").ToString, CC, Bcc, Options + ";" & MessageID, AddressOf SendMessage_Completed, MessageID)
                         'ret = MsgManager.SendMessage(.Parameters("@MessageID").Value, row("Usercode").ToString, row("Password").ToString, Title, Content, row("Recipients").ToString, Options + ";" & MessageID)

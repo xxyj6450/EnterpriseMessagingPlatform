@@ -9,8 +9,8 @@
     <ProjectGuid>{15E80C96-F0E2-44CA-85D6-E1A255CF7741}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <StartupObject>Sub Main</StartupObject>
-    <RootNamespace>MessageCenter</RootNamespace>
-    <AssemblyName>MessageCenter</AssemblyName>
+    <RootNamespace>EMP</RootNamespace>
+    <AssemblyName>EMP.Client.DesktopClient</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>MessageCenter.xml</DocumentationFile>
+    <DocumentationFile>EMP.Client.DesktopClient.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>MessageCenter.xml</DocumentationFile>
+    <DocumentationFile>EMP.Client.DesktopClient.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -54,6 +54,9 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonLib">
+      <HintPath>..\..\..\..\..\宽乐通讯\klMessage\KLMessageServer\Server\WebService\WebService\bin\CommonLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -75,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.vb" />
+    <Compile Include="Export.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +104,12 @@
     <Compile Include="frmSendMessageLog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frm_RecieveMessage.Designer.vb">
+      <DependentUpon>frm_RecieveMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frm_RecieveMessage.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MessageInfo.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -116,6 +126,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Web References\MessageCenterservice\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\MessageGateway\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSendMessageLog.resx">
       <DependentUpon>frmSendMessageLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_RecieveMessage.resx">
+      <DependentUpon>frm_RecieveMessage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -151,6 +169,11 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="Web References\MessageCenterservice\MessageCenterservice.wsdl" />
+    <None Include="Web References\MessageCenterservice\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
     <None Include="Web References\MessageGateway\MessageGatewayService.wsdl" />
     <None Include="Web References\MessageGateway\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -161,6 +184,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://218.16.64.234:802/MessageCenterservice.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\MessageCenterservice\</RelPath>
+      <UpdateFromURL>http://218.16.64.234:802/MessageCenterservice.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>EMP_Client_DesktopClient_MessageCenterservice_MessageCenterService</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://218.16.64.234:802/MessageGatewayService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\MessageGateway\</RelPath>
@@ -178,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="foxmail.ico" />
+    <None Include="Web References\MessageCenterservice\MessageCenterservice.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

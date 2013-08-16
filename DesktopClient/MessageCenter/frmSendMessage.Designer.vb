@@ -97,7 +97,7 @@ Partial Class frmSendMessage
         Me.nudNumberCount.Name = "nudNumberCount"
         Me.nudNumberCount.Size = New System.Drawing.Size(56, 21)
         Me.nudNumberCount.TabIndex = 5
-        Me.nudNumberCount.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.nudNumberCount.Value = New Decimal(New Integer() {100, 0, 0, 0})
         '
         'txtMessage
         '

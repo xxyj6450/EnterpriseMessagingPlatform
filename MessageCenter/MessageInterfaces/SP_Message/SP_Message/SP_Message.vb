@@ -2,14 +2,40 @@
 Imports System.Web
 Imports System.Net
 Imports EMP
+Imports System.Data
+Imports System.Data.SqlClient
+Imports log4net
 Namespace Messager
     <EMP.Messager("B9644867-678E-46F6-984C-4BE5E50FEDF7", 0, "SP短信", "SYSTEM", "联通SP短信接口")>
     Public Class SP_Message
         Implements MessagerInterfaces.IMessager
-
         Private Const SP_Message_URL As String = "http://192.168.88.53:8080/JtSgip/JTMessageSend.jsp"
-        Protected Friend Function RecieveMessage(Reciver As String, SequenceNo As String, Recipients As String, From As String, Sender As String, Title As String, Content As String, Format As Integer, RecieveTime As Date) As Integer Implements MessagerInterfaces.IMessager.RecieveMessage
 
+        Protected Friend Function RecieveMessage(Reciver As String, SequenceNo As String, Recipients As String, From As String, _
+                                                 Sender As String, Title As String, Content As String, Format As Integer, RecieveTime As Date) As Integer Implements MessagerInterfaces.IMessager.RecieveMessage
+            Dim cmd As System.Data.SqlClient.SqlCommand
+            Dim b() As Byte = System.Text.Encoding.UTF8.GetBytes(Content)
+            '身份验证
+            Using conn As SqlClient.SqlConnection = New SqlClient.SqlConnection(Web.Configuration.WebConfigurationManager.ConnectionStrings("SP_MessageDB").ConnectionString)
+                conn.Open()
+                cmd = New SqlCommand("sp_RecieveMessage", conn)
+                With cmd
+                    .CommandType = CommandType.StoredProcedure
+                    .Parameters.Add("@InterfaceID", SqlDbType.VarChar).Value = Me.InterfaceID
+                    .Parameters.Add("@Reciver", SqlDbType.VarChar).Value = Reciver
+                    .Parameters.Add("@SequenceNo", SqlDbType.VarChar).Value = SequenceNo
+                    .Parameters.Add("@Recipients", SqlDbType.VarChar).Value = Recipients
+                    .Parameters.Add("@From", SqlDbType.VarChar).Value = From
+                    .Parameters.Add("@Sender", SqlDbType.VarChar).Value = Sender
+                    .Parameters.Add("@Content", SqlDbType.VarChar).Value = Content & "|" & System.Text.UnicodeEncoding.Unicode.GetString(System.Text.Encoding.UTF8.GetBytes(Content))
+                    .Parameters.Add("@Title", SqlDbType.VarChar).Value = Title
+                    .Parameters.Add("@Format", SqlDbType.Int).Value = Format
+                    .Parameters.Add("@RecieveTime", SqlDbType.DateTime).Value = RecieveTime
+                    .ExecuteNonQuery()
+                End With
+                conn.Close()
+            End Using
+            Return 0
         End Function
 
         Public Function SendMessage(ByRef MessageID As String, NodeUsercode As String, NodePassword As String, Usercode As String, Password As String, Sender As String, SenderName As String, Title As String, Content As String, Format As Integer, Recipients As String, CC As String, Bcc As String, ByRef Reserve As String) As String Implements MessagerInterfaces.IMessager.SendMessage

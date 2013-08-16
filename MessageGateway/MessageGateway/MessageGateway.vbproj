@@ -49,6 +49,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\log4net-1.2.11-bin-newkey\log4net-1.2.11\bin\mono\2.0\release\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -152,10 +155,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:20291/MessageCenterService.asmx">
+    <WebReferenceUrl Include="http://218.16.64.234:802/MessageCenterservice.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\MessageCenterService\</RelPath>
-      <UpdateFromURL>http://localhost:20291/MessageCenterService.asmx</UpdateFromURL>
+      <UpdateFromURL>http://218.16.64.234:802/MessageCenterservice.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

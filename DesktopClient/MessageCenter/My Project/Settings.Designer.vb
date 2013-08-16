@@ -63,6 +63,16 @@ Namespace My
                 Return CType(Me("MessageCenter_MessageGateway_MessageGatewayService"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://218.16.64.234:802/MessageCenterservice.asmx")>  _
+        Public ReadOnly Property EMP_Client_DesktopClient_MessageCenterservice_MessageCenterService() As String
+            Get
+                Return CType(Me("EMP_Client_DesktopClient_MessageCenterservice_MessageCenterService"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 
@@ -74,9 +84,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.MessageCenter.My.MySettings
+        Friend ReadOnly Property Settings() As Global.EMP.My.MySettings
             Get
-                Return Global.MessageCenter.My.MySettings.Default
+                Return Global.EMP.My.MySettings.Default
             End Get
         End Property
     End Module

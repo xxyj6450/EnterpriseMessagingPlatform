@@ -36,6 +36,7 @@ Partial Class frmMain
         Me.mnuMessage = New System.Windows.Forms.ToolStripMenuItem()
         Me.发送短信SToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.短信状态查询RToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.接收短信ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuReport = New System.Windows.Forms.ToolStripMenuItem()
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WindowsMenu = New System.Windows.Forms.ToolStripMenuItem()
@@ -131,7 +132,7 @@ Partial Class frmMain
         '
         'mnuMessage
         '
-        Me.mnuMessage.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.发送短信SToolStripMenuItem, Me.短信状态查询RToolStripMenuItem})
+        Me.mnuMessage.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.发送短信SToolStripMenuItem, Me.短信状态查询RToolStripMenuItem, Me.接收短信ToolStripMenuItem})
         Me.mnuMessage.Name = "mnuMessage"
         Me.mnuMessage.Size = New System.Drawing.Size(63, 20)
         Me.mnuMessage.Text = "短信(&M)"
@@ -148,6 +149,12 @@ Partial Class frmMain
         Me.短信状态查询RToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
         Me.短信状态查询RToolStripMenuItem.Text = "短信状态查询(&R)"
         '
+        '接收短信ToolStripMenuItem
+        '
+        Me.接收短信ToolStripMenuItem.Name = "接收短信ToolStripMenuItem"
+        Me.接收短信ToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.接收短信ToolStripMenuItem.Text = "接收短信"
+        '
         'mnuReport
         '
         Me.mnuReport.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem})
@@ -158,7 +165,7 @@ Partial Class frmMain
         'OptionsToolStripMenuItem
         '
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.OptionsToolStripMenuItem.Text = "短信发送汇总"
         '
         'WindowsMenu
@@ -415,5 +422,6 @@ Partial Class frmMain
     Friend WithEvents 粘贴PToolStripButton As System.Windows.Forms.ToolStripButton
     Friend WithEvents toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents 帮助LToolStripButton As System.Windows.Forms.ToolStripButton
+    Friend WithEvents 接收短信ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

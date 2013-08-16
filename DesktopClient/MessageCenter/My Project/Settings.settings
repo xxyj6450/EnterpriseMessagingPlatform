@@ -5,5 +5,8 @@
     <Setting Name="MessageCenter_MessageGateway_MessageGatewayService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://218.16.64.234:802/MessageGatewayService.asmx</Value>
     </Setting>
+    <Setting Name="EMP_Client_DesktopClient_MessageCenterservice_MessageCenterService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://218.16.64.234:802/MessageCenterservice.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

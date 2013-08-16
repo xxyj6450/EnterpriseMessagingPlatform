@@ -20,27 +20,27 @@ Namespace Messager
         <WebMethod()> _
         <SoapRpcMethod(Action:="SendMessage", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
         Public Function SendMessage(MessageID As String, Usercode As String, Password As String, Content As String, Recipients As String, Reserve As String) As Integer
-            Return (New SP_Message).SendMessage(MessageID, Usercode, Password, Content, Recipients, Reserve)
+            Return sp_Object.SendMessage(MessageID, Usercode, Password, Content, Recipients, Reserve)
         End Function
 
         <WebMethod()> _
         <SoapRpcMethod(Action:="NotifyStatus", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
         Public Function NotifyStatus(SPNumber As String, SequenceNo As String, MessageID As String, Recipient As String, NotifyType As Integer, Status As Integer, Text As String) As Integer
             WriteLog("收到通知:" & SPNumber & "," & SequenceNo & "," & MessageID & "," & Recipient & "," & NotifyType & "," & Status & "," & Text)
-            Return (New SP_Message).NotifyStatus(SPNumber, SequenceNo, MessageID, Recipient, NotifyType, Status, Text, "")
+            Return sp_Object.NotifyStatus(SPNumber, SequenceNo, MessageID, Recipient, NotifyType, Status, Text, "")
         End Function
 
         <WebMethod()> _
         <SoapRpcMethod(Action:="EchoOfSendSMS", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
         Public Function EchoOfSendSMS(SPNumber As String, SequenceNo As String, MessageID As String, Recipient As String, Status As Integer, ErrorCode As Integer) As Integer
             WriteLog("收到回执:" & SPNumber & "," & SequenceNo & "," & MessageID & "," & Recipient & "," & Status & "," & ErrorCode)
-            Return (New SP_Message).EchoOfSendSMS(SPNumber, SequenceNo, MessageID, Recipient, Status, ErrorCode, "")
+            Return sp_Object.EchoOfSendSMS(SPNumber, SequenceNo, MessageID, Recipient, Status, ErrorCode, "")
         End Function
         <WebMethod()> _
         <SoapRpcMethod(Action:="RecieveMessage", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
         Public Function RecieveMessage(SPNumber As String, RecieveNumber As String, Sender As String, Content As String, RecieveTime As Date) As Integer
             WriteLog("收到消息:" & SPNumber & "," & Sender & "," & RecieveTime & "," & Content)
-            Return (New SP_Message).RecieveMessage(SPNumber, "", RecieveNumber, "", Sender, "", Content, 0, RecieveTime)
+            Return sp_Object.RecieveMessage(SPNumber, "", RecieveNumber, "", Sender, "", Content, 0, RecieveTime)
         End Function
 
 

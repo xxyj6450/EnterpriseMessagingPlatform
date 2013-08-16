@@ -33,16 +33,16 @@ Namespace MessageGateway
         
         Private SendMessageOperationCompleted As System.Threading.SendOrPostCallback
         
-        Private RegisterOperationCompleted As System.Threading.SendOrPostCallback
+        Private SendEmailOperationCompleted As System.Threading.SendOrPostCallback
         
-        Private NotifyStatusOperationCompleted As System.Threading.SendOrPostCallback
+        Private SendSMSOperationCompleted As System.Threading.SendOrPostCallback
         
         Private useDefaultCredentialsSetExplicitly As Boolean
         
         '''<remarks/>
         Public Sub New()
             MyBase.New
-            Me.Url = Global.MessageCenter.My.MySettings.Default.MessageCenter_MessageGateway_MessageGatewayService
+            Me.Url = Global.EMP.My.MySettings.Default.MessageCenter_MessageGateway_MessageGatewayService
             If (Me.IsLocalFileSystemWebService(Me.Url) = true) Then
                 Me.UseDefaultCredentials = true
                 Me.useDefaultCredentialsSetExplicitly = false
@@ -79,29 +79,29 @@ Namespace MessageGateway
         Public Event SendMessageCompleted As SendMessageCompletedEventHandler
         
         '''<remarks/>
-        Public Event RegisterCompleted As RegisterCompletedEventHandler
+        Public Event SendEmailCompleted As SendEmailCompletedEventHandler
         
         '''<remarks/>
-        Public Event NotifyStatusCompleted As NotifyStatusCompletedEventHandler
+        Public Event SendSMSCompleted As SendSMSCompletedEventHandler
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapRpcMethodAttribute("SendMessage", RequestNamespace:="", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
-        Public Function SendMessage(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal MessageType As Integer, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal RetryOnError As Boolean, ByVal Reportflag As Integer, ByVal MessageID As String) As Integer
-            Dim results() As Object = Me.Invoke("SendMessage", New Object() {Usercode, Password, Recipients, MessageType, Title, Content, Format, RetryOnError, Reportflag, MessageID})
+        Public Function SendMessage(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal MessageType As Integer, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal RetryOnError As Boolean, ByVal Reportflag As Integer) As Integer
+            Dim results() As Object = Me.Invoke("SendMessage", New Object() {Usercode, Password, Recipients, MessageType, Title, Content, Format, RetryOnError, Reportflag})
             Return CType(results(0),Integer)
         End Function
         
         '''<remarks/>
-        Public Overloads Sub SendMessageAsync(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal MessageType As Integer, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal RetryOnError As Boolean, ByVal Reportflag As Integer, ByVal MessageID As String)
-            Me.SendMessageAsync(Usercode, Password, Recipients, MessageType, Title, Content, Format, RetryOnError, Reportflag, MessageID, Nothing)
+        Public Overloads Sub SendMessageAsync(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal MessageType As Integer, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal RetryOnError As Boolean, ByVal Reportflag As Integer)
+            Me.SendMessageAsync(Usercode, Password, Recipients, MessageType, Title, Content, Format, RetryOnError, Reportflag, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub SendMessageAsync(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal MessageType As Integer, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal RetryOnError As Boolean, ByVal Reportflag As Integer, ByVal MessageID As String, ByVal userState As Object)
+        Public Overloads Sub SendMessageAsync(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal MessageType As Integer, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal RetryOnError As Boolean, ByVal Reportflag As Integer, ByVal userState As Object)
             If (Me.SendMessageOperationCompleted Is Nothing) Then
                 Me.SendMessageOperationCompleted = AddressOf Me.OnSendMessageOperationCompleted
             End If
-            Me.InvokeAsync("SendMessage", New Object() {Usercode, Password, Recipients, MessageType, Title, Content, Format, RetryOnError, Reportflag, MessageID}, Me.SendMessageOperationCompleted, userState)
+            Me.InvokeAsync("SendMessage", New Object() {Usercode, Password, Recipients, MessageType, Title, Content, Format, RetryOnError, Reportflag}, Me.SendMessageOperationCompleted, userState)
         End Sub
         
         Private Sub OnSendMessageOperationCompleted(ByVal arg As Object)
@@ -112,56 +112,56 @@ Namespace MessageGateway
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("Register", RequestNamespace:="", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
-        Public Function Register(ByVal Usercode As String, ByVal Password As String, ByVal CallBackAddr As String) As Integer
-            Dim results() As Object = Me.Invoke("Register", New Object() {Usercode, Password, CallBackAddr})
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("SendEmail", RequestNamespace:="", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        Public Function SendEmail(ByVal Usercode As String, ByVal Password As String, ByVal Sender As String, ByVal SenderName As String, ByVal Recipients As String, ByVal CC As String, ByVal BCC As String, ByVal Title As String, ByVal Content As String, ByVal Format As Integer) As Integer
+            Dim results() As Object = Me.Invoke("SendEmail", New Object() {Usercode, Password, Sender, SenderName, Recipients, CC, BCC, Title, Content, Format})
             Return CType(results(0),Integer)
         End Function
         
         '''<remarks/>
-        Public Overloads Sub RegisterAsync(ByVal Usercode As String, ByVal Password As String, ByVal CallBackAddr As String)
-            Me.RegisterAsync(Usercode, Password, CallBackAddr, Nothing)
+        Public Overloads Sub SendEmailAsync(ByVal Usercode As String, ByVal Password As String, ByVal Sender As String, ByVal SenderName As String, ByVal Recipients As String, ByVal CC As String, ByVal BCC As String, ByVal Title As String, ByVal Content As String, ByVal Format As Integer)
+            Me.SendEmailAsync(Usercode, Password, Sender, SenderName, Recipients, CC, BCC, Title, Content, Format, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub RegisterAsync(ByVal Usercode As String, ByVal Password As String, ByVal CallBackAddr As String, ByVal userState As Object)
-            If (Me.RegisterOperationCompleted Is Nothing) Then
-                Me.RegisterOperationCompleted = AddressOf Me.OnRegisterOperationCompleted
+        Public Overloads Sub SendEmailAsync(ByVal Usercode As String, ByVal Password As String, ByVal Sender As String, ByVal SenderName As String, ByVal Recipients As String, ByVal CC As String, ByVal BCC As String, ByVal Title As String, ByVal Content As String, ByVal Format As Integer, ByVal userState As Object)
+            If (Me.SendEmailOperationCompleted Is Nothing) Then
+                Me.SendEmailOperationCompleted = AddressOf Me.OnSendEmailOperationCompleted
             End If
-            Me.InvokeAsync("Register", New Object() {Usercode, Password, CallBackAddr}, Me.RegisterOperationCompleted, userState)
+            Me.InvokeAsync("SendEmail", New Object() {Usercode, Password, Sender, SenderName, Recipients, CC, BCC, Title, Content, Format}, Me.SendEmailOperationCompleted, userState)
         End Sub
         
-        Private Sub OnRegisterOperationCompleted(ByVal arg As Object)
-            If (Not (Me.RegisterCompletedEvent) Is Nothing) Then
+        Private Sub OnSendEmailOperationCompleted(ByVal arg As Object)
+            If (Not (Me.SendEmailCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
-                RaiseEvent RegisterCompleted(Me, New RegisterCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+                RaiseEvent SendEmailCompleted(Me, New SendEmailCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/NotifyStatus", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
-        Public Function NotifyStatus(ByVal MessageID As String, ByVal Recipients As String, ByVal NotifyType As Integer, ByVal Status As Integer, ByVal Text As String, ByVal Param As Object) As Integer
-            Dim results() As Object = Me.Invoke("NotifyStatus", New Object() {MessageID, Recipients, NotifyType, Status, Text, Param})
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("SendSMS", RequestNamespace:="", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal)>  _
+        Public Function SendSMS(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal Content As String) As Integer
+            Dim results() As Object = Me.Invoke("SendSMS", New Object() {Usercode, Password, Recipients, Content})
             Return CType(results(0),Integer)
         End Function
         
         '''<remarks/>
-        Public Overloads Sub NotifyStatusAsync(ByVal MessageID As String, ByVal Recipients As String, ByVal NotifyType As Integer, ByVal Status As Integer, ByVal Text As String, ByVal Param As Object)
-            Me.NotifyStatusAsync(MessageID, Recipients, NotifyType, Status, Text, Param, Nothing)
+        Public Overloads Sub SendSMSAsync(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal Content As String)
+            Me.SendSMSAsync(Usercode, Password, Recipients, Content, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub NotifyStatusAsync(ByVal MessageID As String, ByVal Recipients As String, ByVal NotifyType As Integer, ByVal Status As Integer, ByVal Text As String, ByVal Param As Object, ByVal userState As Object)
-            If (Me.NotifyStatusOperationCompleted Is Nothing) Then
-                Me.NotifyStatusOperationCompleted = AddressOf Me.OnNotifyStatusOperationCompleted
+        Public Overloads Sub SendSMSAsync(ByVal Usercode As String, ByVal Password As String, ByVal Recipients As String, ByVal Content As String, ByVal userState As Object)
+            If (Me.SendSMSOperationCompleted Is Nothing) Then
+                Me.SendSMSOperationCompleted = AddressOf Me.OnSendSMSOperationCompleted
             End If
-            Me.InvokeAsync("NotifyStatus", New Object() {MessageID, Recipients, NotifyType, Status, Text, Param}, Me.NotifyStatusOperationCompleted, userState)
+            Me.InvokeAsync("SendSMS", New Object() {Usercode, Password, Recipients, Content}, Me.SendSMSOperationCompleted, userState)
         End Sub
         
-        Private Sub OnNotifyStatusOperationCompleted(ByVal arg As Object)
-            If (Not (Me.NotifyStatusCompletedEvent) Is Nothing) Then
+        Private Sub OnSendSMSOperationCompleted(ByVal arg As Object)
+            If (Not (Me.SendSMSCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
-                RaiseEvent NotifyStatusCompleted(Me, New NotifyStatusCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+                RaiseEvent SendSMSCompleted(Me, New SendSMSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -213,13 +213,13 @@ Namespace MessageGateway
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")>  _
-    Public Delegate Sub RegisterCompletedEventHandler(ByVal sender As Object, ByVal e As RegisterCompletedEventArgs)
+    Public Delegate Sub SendEmailCompletedEventHandler(ByVal sender As Object, ByVal e As SendEmailCompletedEventArgs)
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
-    Partial Public Class RegisterCompletedEventArgs
+    Partial Public Class SendEmailCompletedEventArgs
         Inherits System.ComponentModel.AsyncCompletedEventArgs
         
         Private results() As Object
@@ -240,13 +240,13 @@ Namespace MessageGateway
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")>  _
-    Public Delegate Sub NotifyStatusCompletedEventHandler(ByVal sender As Object, ByVal e As NotifyStatusCompletedEventArgs)
+    Public Delegate Sub SendSMSCompletedEventHandler(ByVal sender As Object, ByVal e As SendSMSCompletedEventArgs)
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
-    Partial Public Class NotifyStatusCompletedEventArgs
+    Partial Public Class SendSMSCompletedEventArgs
         Inherits System.ComponentModel.AsyncCompletedEventArgs
         
         Private results() As Object

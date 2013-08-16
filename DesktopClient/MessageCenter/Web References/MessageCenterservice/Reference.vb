@@ -22,7 +22,7 @@ Imports System.Xml.Serialization
 '
 '此源代码是由 Microsoft.VSDesigner 4.0.30319.17929 版自动生成。
 '
-Namespace MessageCenterService
+Namespace MessageCenterservice
     
     '''<remarks/>
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929"),  _
@@ -50,7 +50,7 @@ Namespace MessageCenterService
         '''<remarks/>
         Public Sub New()
             MyBase.New
-            Me.Url = Global.EMP.My.MySettings.Default.EMP_MessageGateway_MessageCenterService_MessageCenterService
+            Me.Url = Global.EMP.My.MySettings.Default.EMP_Client_DesktopClient_MessageCenterservice_MessageCenterService
             If (Me.IsLocalFileSystemWebService(Me.Url) = true) Then
                 Me.UseDefaultCredentials = true
                 Me.useDefaultCredentialsSetExplicitly = false

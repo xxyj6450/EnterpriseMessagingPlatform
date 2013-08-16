@@ -1,6 +1,8 @@
 ﻿Imports System.Reflection
 Imports System.Threading
+Imports log4net
 Public Class MessagerFactory
+    Private Shared log As log4net.ILog = log4net.LogManager.GetLogger("SendProgress")
     'Interfaces存储了
     Public Shared Interfaces As New System.Collections.Generic.Dictionary(Of String, EMP.MessagerInfo)
     '根据接口ID创建消息发送对象
@@ -25,24 +27,30 @@ Public Class MessagerFactory
         SyncLock Interfaces
             Interfaces.Clear()
             '搜索工作目录
-            SearchPath(System.IO.Directory.GetCurrentDirectory)
-            '搜索Lib目录,如果存在的话
-            path = System.IO.Directory.GetCurrentDirectory & "\Lib"
-            If System.IO.Directory.Exists(path) Then SearchPath(path)
-            '搜索bin目录,如果存在的话
-            path = System.IO.Directory.GetCurrentDirectory & "\bin"
-            If System.IO.Directory.Exists(path) Then SearchPath(path)
-            '搜索include目录,如果存在的话
-            path = System.IO.Directory.GetCurrentDirectory & "\include"
-            If System.IO.Directory.Exists(path) Then SearchPath(path)
-            '搜索Interface目录,如果存在的话
-            path = System.IO.Directory.GetCurrentDirectory & "\Interface"
-            If System.IO.Directory.Exists(path) Then SearchPath(path)
+            Try
+                SearchPath(System.IO.Directory.GetCurrentDirectory)
+            Catch ex As Exception
+
+            End Try
+            Try
+                '搜索Lib目录,如果存在的话
+                SearchPath("\")
+            Catch ex As Exception
+
+            End Try
+            Try
+                '搜索bin目录,如果存在的话
+                SearchPath(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString())
+            Catch ex As Exception
+                
+            End Try
+
         End SyncLock
     End Sub
     Private Shared Sub SearchPath(Path As String)
         Dim asm As Assembly
         For Each file As String In My.Computer.FileSystem.GetFiles(Path, FileIO.SearchOption.SearchAllSubDirectories)
+            log.Info("扫描文件" & file)
             If file Like "*\EMP.Messager.*.dll" Then
                 Try
                     asm = System.Reflection.Assembly.LoadFrom(file)

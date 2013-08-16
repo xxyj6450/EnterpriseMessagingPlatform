@@ -92,38 +92,35 @@ Public Class MessageGatewayService
         msgCenter = New MessageCenterService.MessageCenterService
         Dim sendSMS As New SendMessage_MessageCenterDelegate(AddressOf msgCenter.SendMessage)
 
-        sendSMS.BeginInvoke(NodeID, Node_Usercode, Node_Password, Usercode, Password, Sender, SenderName, Recipients, CC, BCC, MessageType, Title, Content, Format, Node_RetryOnError, Node_Reportflag, Node_MessageId, _
-                            Node_InterfaceID, Node_CONNID, Node_TerminalID, Node_IPAddress, MessageID, New System.AsyncCallback(AddressOf SendMessage_MessageCenter_Compelted), Nothing)
+        sendSMS.BeginInvoke(Node_CONNID, NodeID, Node_Usercode, Node_Password, Usercode, Password, _
+                            Sender, SenderName, Recipients, CC, BCC, MessageType, Title, Content, Format, Node_RetryOnError, Node_Reportflag, Node_MessageId, _
+                            Node_InterfaceID, MessageID, New System.AsyncCallback(AddressOf SendMessage_MessageCenter_Compelted), Nothing)
         Return 0
     End Function
-    <WebMethod()> _
-    <SoapRpcMethod(Action:="SendEmail", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
-    Public 
     <WebMethod()> _
     <SoapRpcMethod(Action:="SendEmail", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
     Public Function SendEmail(Usercode As String, Password As String, Sender As String, SenderName As String, Recipients As String, CC As String, BCC As String, _
                                 Title As String, Content As String, Format As Integer) As Integer
         Dim IPAddress As String, CONNID As String, NodeUsercode As String, NodePassword As String, TerminalID As String, MessageID As String
-
     End Function
     <WebMethod()> _
     <SoapRpcMethod(Action:="SendSMS", RequestNamespace:="", Use:=SoapBindingUse.Literal)> _
     Public Function SendSMS(Usercode As String, Password As String, Recipients As String, Content As String) As Integer
         Dim IPAddress As String, CONNID As String, NodeUsercode As String, NodePassword As String, TerminalID As String, MessageID As String
-
+        
     End Function
-
     '声名发送消息到消息中心的委托，用于异步调用
-    Private Delegate Function SendMessage_MessageCenterDelegate(NodeID As String, NodeUsercode As String, NodePassword As String, _
+    Private Delegate Function SendMessage_MessageCenterDelegate(CONNID As String, NodeID As String, NodeUsercode As String, NodePassword As String, _
                                        Usercode As String, Password As String, Sender As String, SenderName As String, _
                                        Recipients As String, CC As String, Bcc As String, MessageType As Integer, Title As String, Content As String, _
                                        Format As Integer, RetryOnError As Boolean, Reportflag As Integer, MessageID As String, _
-                                InterfaceID As String, CONNID As String, TerminalID As String, IPAddress As String, Param As String) As Integer
+                                InterfaceID As String, Param As String) As Integer
 
     '发送消息结束时的事件
     Private Sub SendMessage_MessageCenter_Compelted(ByVal itfAR As IAsyncResult)
         Dim ar As AsyncResult = CType(itfAR, AsyncResult)
         Dim sms_d As SendMessage_MessageCenterDelegate = CType(ar.AsyncDelegate, SendMessage_MessageCenterDelegate)
+        Dim msgCenter = New MessageCenterService.MessageCenterService
 
     End Sub
  

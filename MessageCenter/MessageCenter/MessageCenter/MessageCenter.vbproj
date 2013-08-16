@@ -49,9 +49,16 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\CommonLib.dll</HintPath>
+    </Reference>
     <Reference Include="EMP.MessagerInterfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Common\IMessage\IMessage\bin\Release\EMP.MessagerInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\log4net-1.2.11-bin-newkey\log4net-1.2.11\bin\mono\2.0\release\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -86,7 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MessageCenterService.asmx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -95,6 +104,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.vb" />
     <Compile Include="MessageCenter.vb" />
     <Compile Include="MessageCenterService.asmx.vb">
       <DependentUpon>MessageCenterService.asmx</DependentUpon>

@@ -1,6 +1,7 @@
 ﻿Imports System.Data
 Imports System.Data.SqlClient
 Namespace Messsager
+    <EMP.Messager("68A36DF0-0C4A-407E-98E1-33C0D0077804", 0, "恒讯短信", "SYSTEM", "恒讯短信三网接口")>
     Public Class HX_Message
         Implements MessagerInterfaces.IMessager
 

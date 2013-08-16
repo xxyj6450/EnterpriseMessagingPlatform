@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="EMP_MessageGateway_MessageCenterService_MessageCenterService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:20291/MessageCenterService.asmx</Value>
+      <Value Profile="(Default)">http://218.16.64.234:802/MessageCenterservice.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -131,7 +131,7 @@ Public Class frmSendMessage
     Public Function SendMessage(Recipients As String, Message As String) As Integer
         Dim ws As New MessageGateway.MessageGatewayService
         Dim ret As Integer
-        ret = ws.SendMessage("admin", "lkmojupdfe", Recipients, 1, "", Message, 0, True, 1, Guid.NewGuid().ToString())
+        ret = ws.SendMessage("admin", "lkmojupdfe", Recipients, 1, "", Message, 0, True, 1)
         'Thread.Sleep(1000)
         Return 0
     End Function
